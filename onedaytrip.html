@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>肇庆一日游行程计划</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #1a6dcc 0%, #0d4d9c 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50px;
+            width: 4px;
+            background: #1a6dcc;
+            border-radius: 2px;
+        }
+        .time-block {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 90px;
+        }
+        .time-block:last-child {
+            margin-bottom: 0;
+        }
+        .time-marker {
+            position: absolute;
+            left: 38px;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #1a6dcc;
+            border: 4px solid white;
+            box-shadow: 0 0 0 2px #1a6dcc;
+            z-index: 1;
+        }
+        .time-content {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid #1a6dcc;
+            transition: all 0.3s ease;
+        }
+        .time-content:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .time-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .time-period {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1a6dcc;
+        }
+        .time-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        .time-details {
+            margin-top: 15px;
+            color: #555;
+            display: none;
+        }
+        .time-details.active {
+            display: block;
+        }
+        .details-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        .details-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .details-list li::before {
+            content: "•";
+            color: #1a6dcc;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .tip {
+            background: #e8f4ff;
+            border-left: 4px solid #1a6dcc;
+            padding: 10px 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .location {
+            color: #0d4d9c;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .time-block.active .time-marker {
+            background: #ff9800;
+            box-shadow: 0 0 0 2px #ff9800;
+        }
+        .time-block.active .time-content {
+            border-left-color: #ff9800;
+        }
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #1a6dcc;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .toggle-btn:hover {
+            color: #0d4d9c;
+        }
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        .toggle-btn.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        .recommendation {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            .time-block {
+                padding-left: 70px;
+            }
+            .time-marker {
+                left: 18px;
+            }
+            .time-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>肇庆一日游行程计划</h1>
+            <p>广州出发，山水精华，轻松休闲</p>
+        </header>
+        
+        <div class="timeline">
+            <!-- 上午：出发与抵达 -->
+            <div class="time-block">
+                <div class="time-marker"></div>
+                <div class="time-content">
+                    <div class="time-header">
+                        <div>
+                            <div class="time-period">08:00 - 10:30</div>
+                            <div class="time-title">出发与抵达</div>
+                        </div>
+                        <button class="toggle-btn">
+                            <span>展开详情</span>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                    </div>
+                    <div class="location">广州 → 肇庆紫云谷</div>
+                    <div class="time-details">
+                        <ul class="details-list">
+                            <li><strong>08:00-08:15</strong> 广州集合出发（建议地点：体育西路、公园前等地铁站附近）</li>
+                            <li><strong>08:15-10:00</strong> 前往肇庆紫云谷（包车建议：中巴车，舒适便捷）</li>
+                            <li><strong>10:00-10:30</strong> 抵达并进入景区</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 紫云谷游玩 -->
+            <div class="time-block">
+                <div class="time-marker"></div>
+                <div class="time-content">
+                    <div class="time-header">
+                        <div>
+                            <div class="time-period">10:30 - 13:00</div>
+                            <div class="time-title">紫云谷游玩</div>
+                        </div>
+                        <button class="toggle-btn">
+                            <span>展开详情</span>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                    </div>
+                    <div class="location">紫云谷景区</div>
+                    <div class="time-details">
+                        <ul class="details-list">
+                            <li><strong>10:30-10:45</strong> 渡江与入园：从码头乘船渡江，欣赏西江羚羊峡风光</li>
+                            <li><strong>10:45-11:15</strong> 文化初探与拍照：参观端砚老坑遗址，在铁索桥和风雨桥打卡</li>
+                            <li><strong>11:15-12:15</strong> 溯溪核心体验：沿溪流而上，经过天青池等潭池，体验溪水清凉</li>
+                            <li><strong>12:15-12:45</strong> 返程与休整：原路返回至景区入口附近</li>
+                        </ul>
+                        <div class="tip">
+                            <strong>拍照提示：</strong> 铁索桥和风雨桥非常出片，适合拍集体照。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 午餐 -->
+            <div class="time-block">
+                <div class="time-marker"></div>
+                <div class="time-content">
+                    <div class="time-header">
+                        <div>
+                            <div class="time-period">13:00 - 14:00</div>
+                            <div class="time-title">午餐</div>
+                        </div>
+                        <button class="toggle-btn">
+                            <span>展开详情</span>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                    </div>
+                    <div class="location">景区附近餐厅</div>
+                    <div class="time-details">
+                        <ul class="details-list">
+                            <li><strong>选择1：</strong> 从紫云谷出来后，在码头附近的文殊村或后沥码头一带快速解决午餐（农家菜）</li>
+                            <li><strong>选择2：</strong> 北岭山《南海鸽天下》，离七星岩景区不远，口味与评分高</li>
+                            <li><strong>选择3：</strong> 广东茶点（中华茶楼、子曰礼茶居）</li>
+                        </ul>
+                        <div class="tip">
+                            <strong>推荐：</strong> 河鲜或广东茶点，根据团队口味偏好选择。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 前往七星岩 -->
+            <div class="time-block">
+                <div class="time-marker"></div>
+                <div class="time-content">
+                    <div class="time-header">
+                        <div>
+                            <div class="time-period">14:00 - 14:30</div>
+                            <div class="time-title">前往七星岩景区</div>
+                        </div>
+                        <button class="toggle-btn">
+                            <span>展开详情</span>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                    </div>
+                    <div class="location">紫云谷 → 七星岩</div>
+                    <div class="time-details">
+                        <div class="tip">
+                            <strong>交通：</strong> 从午餐地点前往七星岩景区，约30分钟车程。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 七星岩游玩 -->
+            <div class="time-block">
+                <div class="time-marker"></div>
+                <div class="time-content">
+                    <div class="time-header">
+                        <div>
+                            <div class="time-period">14:30 - 18:30</div>
+                            <div class="time-title">七星岩景区游玩</div>
+                        </div>
+                        <button class="toggle-btn">
+                            <span>展开详情</span>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                    </div>
+                    <div class="location">七星岩景区</div>
+                    <div class="time-details">
+                        <ul class="details-list">
+                            <li><strong>14:30-15:30</strong> 从南门进入，乘船游湖（必玩项目）</li>
+                            <li><strong>15:30-16:15</strong> 龙岩洞探秘：乘小船深入溶洞，欣赏钟乳石和摩崖石刻</li>
+                            <li><strong>16:15-17:00</strong> 水月宫与千年诗廊：参观水月宫，拍摄古风照片</li>
+                            <li><strong>17:00-17:45</strong> 五龙亭休憩与观光：休息赏景，欣赏落日余晖</li>
+                            <li><strong>17:45-18:30</strong> 徒步核心区，观看标志性景点</li>
+                        </ul>
+                        <div class="recommendation">
+                            <strong>精华游玩路线：</strong> 从南门进入 → 乘船游湖（湿地公园游船）→ 徒步核心区 → 可选攀登天柱岩或石室岩俯瞰全景。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 晚餐 -->
+            <div class="time-block">
+                <div class="time-marker"></div>
+                <div class="time-content">
+                    <div class="time-header">
+                        <div>
+                            <div class="time-period">18:30 - 19:30</div>
+                            <div class="time-title">晚餐 & 赏夜景</div>
+                        </div>
+                        <button class="toggle-btn">
+                            <span>展开详情</span>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                    </div>
+                    <div class="location">星湖湖畔餐厅</div>
+                    <div class="time-details">
+                        <ul class="details-list">
+                            <li><strong>晚餐地点：</strong> 强烈推荐在星湖湖畔的餐厅用餐，如星湖假日酒店或附近的特色菜馆</li>
+                            <li><strong>美食推荐：</strong> 品尝肇庆裹蒸粽等当地美食</li>
+                            <li><strong>夜景项目：</strong> 饭后可以散步到牌坊广场，观看音乐喷泉（需查询当天开放时间）</li>
+                        </ul>
+                        <div class="tip">
+                            <strong>体验建议：</strong> 一边品尝美食，一边欣赏星湖夜景，感受肇庆夜晚的休闲氛围。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 返程 -->
+            <div class="time-block">
+                <div class="time-marker"></div>
+                <div class="time-content">
+                    <div class="time-header">
+                        <div>
+                            <div class="time-period">19:30 - 21:00</div>
+                            <div class="time-title">返程</div>
+                        </div>
+                        <button class="toggle-btn">
+                            <span>展开详情</span>
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                    </div>
+                    <div class="location">肇庆 → 广州</div>
+                    <div class="time-details">
+                        <ul class="details-list">
+                            <li><strong>19:30-20:00</strong> 稍作休息或岩前村散步</li>
+                            <li><strong>20:00-21:00</strong> 返回广州</li>
+                        </ul>
+                        <div class="tip">
+                            <strong>温馨提示：</strong> 预计21:00左右抵达广州，结束愉快的一日游行程。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+            
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const timeBlock = this.closest('.time-block');
+                    const details = timeBlock.querySelector('.time-details');
+                    const isActive = details.classList.contains('active');
+                    
+                    // 关闭所有其他打开的详情
+                    document.querySelectorAll('.time-details.active').forEach(activeDetail => {
+                        if (activeDetail !== details) {
+                            activeDetail.classList.remove('active');
+                            activeDetail.closest('.time-block').classList.remove('active');
+                            activeDetail.previousElementSibling.querySelector('.toggle-btn').classList.remove('active');
+                        }
+                    });
+                    
+                    // 切换当前详情
+                    details.classList.toggle('active');
+                    timeBlock.classList.toggle('active');
+                    this.classList.toggle('active');
+                    
+                    // 更新按钮文本
+                    const buttonText = this.querySelector('span:first-child');
+                    buttonText.textContent = isActive ? '展开详情' : '收起详情';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
